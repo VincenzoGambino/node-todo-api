@@ -45,7 +45,7 @@ app.get('/todos/:id', (req, res) => {
 	}
 	Todo.findById(id).then((todo) => {
 		if (todo) {
-			res.status(200).send({todo});
+			res.send({todo});
 		} else {
 			res.sendStatus(404);
 		}
@@ -62,8 +62,8 @@ app.delete('/todos/:id', (req, res) => {
   Todo.findByIdAndRemove(id).then((todo) => {
   	if (!todo) {
       return res.sendStatus(404);
-  		res.send(todo);
 		}
+    res.send({todo});
 	}).catch((e) => {
 		res.sendStatus(400);
 	});
