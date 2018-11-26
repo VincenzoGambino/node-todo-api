@@ -119,7 +119,7 @@ describe('DELETE /todos/:id', () => {
           return done(err);
         }
         Todo.findById(real_id).then((todo) => {
-          expect(todo).toNotExist();
+          expect(todo).toBe(null);
           done();
         }).catch((e) => {
           done(e);
@@ -140,5 +140,45 @@ describe('DELETE /todos/:id', () => {
       .delete('/todos/123abc')
       .expect(404)
       .end(done);
+  });
+});
+
+describe('PATCH /todos/:id', () => {
+  it ('should update the todo', (done) => {
+    var real_id = todos[0]._id.toHexString();
+    var new_text = 'Updated from test';
+    request(app)
+      .patch('/todos/' + real_id)
+      .send({
+        completed: true,
+        text: new_text
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.todo.text).toBe(new_text);
+        expect(res.body.todo.completed).toBe(true);
+        expect(typeof res.body.todo.completedAt).toBe('number')
+      })
+      .end(done);
+
+  });
+
+  it ('should update the todo', (done) => {
+    var real_id = todos[1]._id.toHexString();
+    var new_text = 'Updated from test';
+    request(app)
+      .patch('/todos/' + real_id)
+      .send({
+        completed: false,
+        text: new_text
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.todo.text).toBe(new_text);
+        expect(res.body.todo.completed).toBe(false);
+        expect(res.body.todo.completedAt).toBe(null);
+      })
+      .end(done);
+
   });
 });
