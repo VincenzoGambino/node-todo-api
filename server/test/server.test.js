@@ -16,6 +16,7 @@ var todos = [{
   text: 'second text todo'
 }
 ];
+
 beforeEach((done) => {
   Todo.deleteMany({}).then(() => {
     return Todo.insertMany(todos);
