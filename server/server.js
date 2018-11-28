@@ -14,6 +14,11 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
+
+/**
+ * POST method for To do.
+ * Creates to do items.
+ */
 app.post('/todos', (req, res) => {
 	var todo = new Todo({
 		text: req.body.text
@@ -27,6 +32,11 @@ app.post('/todos', (req, res) => {
 	);
 });
 
+
+/**
+ * GET methos for to do.
+ * Returns a list of to do.
+ */
 app.get('/todos', (req, res) => {
 	Todo.find().then((todos) => {
 		if ({todos}) {
@@ -41,6 +51,10 @@ app.get('/todos', (req, res) => {
 	});
 });
 
+
+/**
+ * GET method for a single to do item.
+ */
 app.get('/todos/:id', (req, res) => {
 	var id = req.params.id;
 	if (!ObjectID.isValid(id)) {
@@ -57,6 +71,10 @@ app.get('/todos/:id', (req, res) => {
 	});
 });
 
+
+/**
+ * DELETE method for a single to do item.
+ */
 app.delete('/todos/:id', (req, res) => {
 	var id = req.params.id;
   if (!ObjectID.isValid(id)) {
@@ -72,6 +90,9 @@ app.delete('/todos/:id', (req, res) => {
 	});
 });
 
+/**
+ * PATCH method for a single to do item.
+ */
 app.patch('/todos/:id', (req, res) => {
   var id = req.params.id;
   if (!ObjectID.isValid(id)) {
@@ -97,7 +118,9 @@ app.patch('/todos/:id', (req, res) => {
 	});
 });
 
-
+/**
+ * POST method for User creation.
+ */
 app.post('/users', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
 	var user = new User(body);

@@ -1,5 +1,14 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
+
+/**
+ * To do model
+ * - text
+ * - completed
+ * - completed at
+ *
+ * @type {Model}
+ */
 var Todo = mongoose.model('Todo', {
   text: {
     type: String,
